@@ -6,8 +6,9 @@
 
     <groupId>io.github.sichengtech</groupId>
     <artifactId>file-truth-validator</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
 
+    <name>File Truth Validator</name>
     <description>
         File Truth Validator 工具类通过读取文件的魔数（Magic Number）来检测文件的真实类型。
         魔数是文件头部固定字节序列，用于标识文件格式。例如，JPEG 文件的魔数为 "FFD8FF"，PNG 文件的魔数为 "89504E47"。通过分析这些魔数，可以准确判断文件的实际格式，而非仅依赖文件扩展名。
