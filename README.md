@@ -51,7 +51,16 @@ Apache Tika是专门用于内容类型检测和内容提取的库，支持超过
 
 工具类提供了多种静态方法，供开发者根据需求选择使用：
 
-1. **检查输入流是否符合指定的文件类型**
+1. **从Maven仓库导入依赖**
+```
+<dependency>
+  <groupId>io.github.sichengtech</groupId>
+  <artifactId>file-truth-validator</artifactId>
+  <version>1.1</version>
+</dependency>
+```
+
+2. **检查输入流是否符合指定的文件类型**
 ```
 try (InputStream input = new FileInputStream("example.jpg")) {
     boolean isValidJpg = FileType4MagicNumber.checkFileType(input, "jpg");
@@ -59,14 +68,14 @@ try (InputStream input = new FileInputStream("example.jpg")) {
 }
 ```
 
-2. 检查文件对象是否与其扩展名声明的类型一致
+3. 检查文件对象是否与其扩展名声明的类型一致
 ```
 File file = new File("example.docx");
 boolean isValidDocx = FileType4MagicNumber.checkFileType(file);
 System.out.println("Is valid DOCX file: " + isValidDocx);
 ```
 
-3. 分析输入流并返回可能的文件类型列表
+4. 分析输入流并返回可能的文件类型列表
 ```
 try (InputStream input = new FileInputStream("unknown_file")) {
     List<String> possibleTypes = FileType4MagicNumber.detectFileType(input);
