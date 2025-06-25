@@ -57,7 +57,6 @@ try (InputStream input = new FileInputStream("example.jpg")) {
     boolean isValidJpg = FileType4MagicNumber.checkFileType(input, "jpg");
     System.out.println("Is valid JPG file: " + isValidJpg);
 }
-
 ```
 
 2. 检查文件对象是否与其扩展名声明的类型一致
@@ -65,8 +64,6 @@ try (InputStream input = new FileInputStream("example.jpg")) {
 File file = new File("example.docx");
 boolean isValidDocx = FileType4MagicNumber.checkFileType(file);
 System.out.println("Is valid DOCX file: " + isValidDocx);
-
-
 ```
 
 3. 分析输入流并返回可能的文件类型列表
@@ -75,3 +72,9 @@ try (InputStream input = new FileInputStream("unknown_file")) {
     List<String> possibleTypes = FileType4MagicNumber.detectFileType(input);
     System.out.println("Possible file types: " + possibleTypes);
 }
+```
+
+## 编译环境
+JDK 8
+
+
