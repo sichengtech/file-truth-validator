@@ -1,0 +1,657 @@
+<html style="font-size: 96.4px;"><head>
+    <meta charset="utf-8">
+    <meta content="no" name="apple-mobile-web-app-capable">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="theme-color" content="#000000">
+    <title>纪念币预约</title>
+	<script type="text/javascript" src="/ICBC/ICBCCOIN/jquery-3.5.0.min.js"></script>
+    <script type="text/javascript" src="/ICBCDynamicSite/coinres/js/json2.js"></script>
+    <script type="text/javascript" src="/ICBCDynamicSite/coinres/js/icbc_alert_confirm.js" charset="GBK"></script>
+    <link rel="shortcut icon" href="/ICBCDynamicSite/coinres/appointment/favicon.ico" type="image/x-icon">
+    <link type="text/css" rel="stylesheet" href="/ICBCDynamicSite/coinres/appointment/cmsswapstyle.css">
+    <style type="text/css">
+        body {
+            height: 100%;
+            -webkit-text-size-adjust: 100% !important;
+            text-size-adjust: 100% !important;
+            -ms-text-size-adjust: 100% !important;
+            background: #F4F4F4;
+            position: relative;
+        }
+        .page-container {
+			background-color: #f5f7f9;
+       	 	background: url(bkground.png?t=250506) no-repeat;
+	        background-size: 100%;
+            padding-top: 40%;
+	        position:relative;
+		    z-index: 1;
+		}
+        .page-container::after {
+            position: absolute;
+            width: 100%;
+            height: 45%;
+            content: "";
+            bottom: 0;
+            left: 0;
+            background-image: linear-gradient(180deg, rgba(245,247,249,0.00) 11%, #F5F7F9 61%);
+            z-index: -1;
+        }
+        
+		.page-batchTable {
+			background: #FFFFFF;
+			box-shadow: 0 0 0.1rem 0 rgba(0,0,0,0.09);
+			border-radius: 0.08rem;
+            width: 95%;
+            margin: auto;
+        }
+
+        .page-TitleWrap {
+            display: inline-block;
+            margin: 4.4% 4.4% 0 3.5%;
+            width:55%;
+		}
+		.page-batchTitle {
+            font-size: 0;
+		}
+		.page-batchSubTitle {
+			font-family: PingFangSC-Medium;
+			font-size: 0.3rem;
+			color: #333333;
+			min-height: 0.42rem;
+            display: block;
+			margin-bottom: 2.6%;
+		}
+		.page-batchTitleDesription {
+			font-family: PingFangSC-Regular;
+			font-size: 0.28rem;
+	        color: #333333;
+			min-height: 0.33rem;
+			display: block;
+
+		}
+		.page-button {
+            min-height: 0.1rem;
+            margin: 4.4% 3% 0 4%;
+            width: 21.1%;
+			position: relative;
+	        float:right;
+		}
+		.page-button img:nth-child(1) {
+            width: 100%;
+			display: block;
+		}
+		.page-button .bookStatusStart {
+            width: 100%;
+			display: block;
+		}
+		.page-button .bookStatusEnd {
+            width: 100%;
+            display: block;
+            position: absolute;
+            right: -0.1rem;
+            top: -0.15rem;
+		}
+		.page-batchContent {
+			width: 100%;
+			background: #FAFAFA;
+			border-radius: 0 0 0.05rem 0.05rem;
+		}
+		.page-batchContent-text {
+			font-family: PingFangSC-Regular;
+			font-size: 0.24rem;
+	        color: #666666;
+			display:block;
+		}
+		.page-batchContent-unfold {
+            padding: 1.5% 3% 1.5% 3.5%;
+		}
+		
+        .page-functionSelect {
+            box-sizing: border-box;
+            margin-top: 6%;
+            width: 95%;
+            margin: 2% auto 3%;
+        }
+        .page-functionWrap {
+            box-sizing: border-box;
+            width: 48.5%;
+            padding: 3.1% 2% 3.1% 3.2%;
+            background: #FFFFFF;
+            box-shadow: 0 0 10px 0 rgba(0,0,0,0.09);
+            border-radius: 0.1rem;
+        }
+        .page-functionWrap .page-functionDescription .page-functionDescription-name{
+            font-family: PingFangSC-Regular;
+            font-size: 0.3rem;
+            color: #333333;
+        }
+        .page-functionWrap .page-functionDescription .page-functionDescription-caption {
+            font-family: PingFangSC-Regular;
+            font-size: 0.26rem;
+            color: #666666;
+	
+        }
+        .page-functionWrap .page-functionIcon {
+            width: 30%;
+            height: auto;
+        }
+        .page-functionIcon img {
+            width: 100%;
+            display: block;
+        }
+        .s-ipv6 {
+            margin: 0 auto;
+            /* position: absolute; */
+            min-height: 6%;
+            color: #a7a7a7;
+            /* bottom: 0; */
+            /* border-top: 0.01rem solid #e7e7e7; */
+            text-align: center;
+            font-size: 0.3rem;
+            width: 88%;
+            /* left: 50%; */
+            /* -ms-transform: translateX(-50%);
+            -moz-transform: translateX(-50%);
+            -o-transform: translateX(-50%);
+            -webkit-transform: translateX(-50%);
+            transform: translateX(-50%); */
+        }
+        .flex {
+            display: -webkit-box;
+            display: -moz-box;
+            display: -webkit-flex;
+            display: -moz-flex;
+            display: -ms-flexbox;
+            display: flex;
+        }
+        .align-center {
+            -ms-align-items: center;
+            -moz-align-items: center;
+            -o-align-items: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+        .justify-center {
+            -ms-justify-content: center;
+            -moz-justify-content: center;
+            -o-justify-content: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+        }
+        .justify-between {
+            -ms-justify-content: space-between;
+            -moz-justify-content: space-between;
+            -o-justify-content: space-between;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+        }
+        .flex-column {
+            -ms-flex-direction: column;
+            -moz-flex-direction: column;
+            -o-flex-direction: column;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+        }
+
+        .s-ipv6 span {
+            color: #d10;
+            border: 1px solid #d10;
+            border-radius: 0.05rem;
+            font-size: 0.3rem;
+            padding: 0px 0.04rem;
+            font-weight: bold;
+        }
+		.page-countDown {
+            border-radius: 0.04rem;
+            margin: 1.8% 0 0 3%;
+        }
+
+        .page-countDown span {
+            display: inline-block;
+            background: #FFF5F5;
+            font-family: PingFangSC-Medium;
+            font-size: 0.28rem;
+            color: #D73209;
+            border-radius: 4px;
+            padding: 0.05rem;
+        }
+
+        .page-marquee {
+            background-color: rgba(0,0,0,0.6);
+            width: 100%;
+            height: 3%;
+            position: absolute;
+            z-index:100;
+        }
+        .page-marquee .page-marquee-wrap{
+            position:relative;
+            flex:1;
+            -ms-flex: 1;
+            
+            overflow:hidden;
+        }
+        .page-marquee .page-marquee-wrap .page-marquee-scroll {
+            position: absolute;
+            white-space: nowrap;
+            overflow: hidden;
+            padding-left: 100%;
+            animation-delay: 0s;
+            -webkit-animation: marquee 20s linear infinite both;
+            animation: marquee 20s linear infinite both;
+            font-family: PingFangSC-Regular;
+            font-size: 0.24rem;
+            color: #FFFFFF;
+            letter-spacing: 0.02rem;
+            text-align: justify;
+            height: 100%;
+        }
+        .page-notice {
+            font-family: PingFangSC-Regular;
+            font-size: 0.24rem;
+            color: #666666;
+        }
+
+        @-webkit-keyframes marquee {
+            from {transform: translate3d(0, 0, 0)
+            }
+
+            to {
+                transform: translate3d(-100%, 0, 0);
+            }
+
+        }
+        @keyframes marquee {
+
+            from {transform: translate3d(0, 0, 0)
+        }
+
+        to {
+            transform: translate3d(-100%, 0, 0);
+        }
+
+        }
+        .page-marquee-closebutton {
+            background: url(./close.png) no-repeat center;
+            background-size: 40%;
+            width: 7%;
+            height: 100%;
+            margin: auto;
+        }
+        .tips {
+            box-sizing: border-box;
+            width: 95%;
+            background-color: #fff;
+            margin: 0  auto;
+            padding: 3.1% 3.1% 3.1% 3.1%;
+            border-radius: 0.1rem;
+            overflow: hidden;
+        }
+        .tips-img {
+            width: 5%;
+            padding-top:1%;
+            vertical-align: top;
+        }
+        .tips-text {
+            display: block;
+            width: 93%;
+            margin-left: 2%;
+            float: right;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-size: 0.26rem;
+            color:  rgba(0,0,0,0.8);
+        }
+        .page-batchTitle{
+            padding-bottom: 4.4%;
+            position: relative;
+        }
+        .page-batchTitle:not(:last-child){
+            position: relative;
+        }
+        .page-batchTitle:not(:last-child)::after{
+            position: absolute;
+            content: "";
+            width: 93%;
+            height: 0.02rem;
+            background-color: #e8e8e8;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body style="text-size-adjust: 100%; display: block;">
+	<div class="page-marquee flex">
+		<div class="page-marquee-wrap flex align-center">
+		    <div class="page-marquee-content flex align-center page-marquee-scroll">预约信息修改或撤销时间：2025年5月7日9时至5月7日24时</div>
+		</div>
+		<div class="page-marquee-closebutton"></div>
+	</div>
+    <div class="page-container">
+        <div class="page-batchTable">
+            <div class="page-batchWrap"><div class="page-batchTitle"><div class="page-TitleWrap"><div class="page-batchSubTitle">东北虎豹币</div><div class="page-batchTitleDesription"><span>2025-05-06 21:00:00</span></div></div><div class="page-button"><img src="goBooking.png" id="bookStatusGoBooking0" style="display: block;" onclick="goBooking(&quot;822&quot;, &quot;https://jnb.icbc.com.cn/&quot;)"><img src="bookStart.png" id="bookStatusStart0" class="bookStatusStart" style="display:none"><img src="bookEnd.png" id="bookStatusEnd0" class="bookStatusEnd" style="display:none"></div><div class="page-countDown" style="display:none"><span id="batchOrder1CountDown0"></span></div></div><div class="page-batchTitle"><div class="page-TitleWrap"><div class="page-batchSubTitle">京剧旦币</div><div class="page-batchTitleDesription"><span>2025-05-06 21:30:00</span></div></div><div class="page-button"><img src="goBooking.png" id="bookStatusGoBooking1" style="display: block;" onclick="goBooking(&quot;823&quot;, &quot;https://jnb.icbc.com.cn/&quot;)"><img src="bookStart.png" id="bookStatusStart1" class="bookStatusStart" style="display:none"><img src="bookEnd.png" id="bookStatusEnd1" class="bookStatusEnd" style="display:none"></div><div class="page-countDown" style="display:none"><span id="batchOrder1CountDown1"></span></div></div><div class="page-batchTitle"><div class="page-TitleWrap"><div class="page-batchSubTitle">2025年贺岁币</div><div class="page-batchTitleDesription"><span>2025-05-06 22:00:00</span></div></div><div class="page-button"><img src="goBooking.png" id="bookStatusGoBooking2" style="display: block;" onclick="goBooking(&quot;824&quot;, &quot;https://jnb.icbc.com.cn/&quot;)"><img src="bookStart.png" id="bookStatusStart2" class="bookStatusStart" style="display:none"><img src="bookEnd.png" id="bookStatusEnd2" class="bookStatusEnd" style="display:none"></div><div class="page-countDown" style="display:none"><span id="batchOrder1CountDown2"></span></div></div><div class="page-batchTitle"><div class="page-TitleWrap"><div class="page-batchSubTitle">2025年贺岁钞</div><div class="page-batchTitleDesription"><span>2025-05-06 22:30:00</span></div></div><div class="page-button"><img src="goBooking.png" id="bookStatusGoBooking3" style="display: block;" onclick="goBooking(&quot;825&quot;, &quot;https://jnb.icbc.com.cn/&quot;)"><img src="bookStart.png" id="bookStatusStart3" class="bookStatusStart" style="display:none"><img src="bookEnd.png" id="bookStatusEnd3" class="bookStatusEnd" style="display:none"></div><div class="page-countDown" style="display:none"><span id="batchOrder1CountDown3"></span></div></div></div>
+            <div class="page-batchContent">
+                <div class="page-batchContent-unfold">
+                    <div class="page-batchContent-text" style="font-weight: bold;" id="page-batchContent-text-title">预约地区：</div>
+                    <div class="page-batchContent-text" id="page-batchContent-text">北京市、天津市、河北省、山西省、内蒙古自治区、辽宁省、吉林省、江苏省、福建省、江西省、河南省（仅承办2025年贺岁币、2025年贺岁钞）、广东省（含深圳）、四川省、贵州省、甘肃省、宁夏回族自治区、新疆维吾尔自治区</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-notice" style="padding: 2% 5.9% 0 5.9%;">温馨提示：</div>
+	<div class="page-notice" style="margin: 0 5.9% 0 9.5%;" id="page-notice"><ol><li>由于预约人数较多，如遇等待提示请您重试。</li><li>为便于您预约，请确保您的本机时间为北京时间。</li></ol></div>
+    <div class="page-functionSelect flex justify-between">
+        <div class="page-functionWrap" id="amountQuery">
+            <div class="page-functionSubWrap flex justify-between">
+                <div class="page-functionDescription flex flex-column justify-between">
+                    <div class="page-functionDescription-name"><span>额度查询</span></div>
+                    <div class="page-functionDescription-caption"><span>网点额度查询</span></div>
+                </div>
+                <div class="page-functionIcon"><img src="amountQuery.png"></div>
+            </div>
+        </div>
+        <div class="page-functionWrap" id="coinOrderQuery">
+            <div class="page-functionSubWrap flex justify-between">
+                <div class="page-functionDescription flex flex-column justify-between">
+                    <div class="page-functionDescription-name"><span>查询修改</span></div>
+                    <div class="page-functionDescription-caption"><span>支持修改撤销</span></div>
+                </div>
+                <div class="page-functionIcon"><img src="query.png"></div>
+            </div>
+        </div>
+    </div>
+    <div class="tips">
+        <img class="tips-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAcCAYAAAB2+A+pAAAAAXNSR0IArs4c6QAAAipJREFUSEvl1k+IjVEYx/HPuUZSCgs7yt8iMfdeQ7FAElI2itUs5M+SxdhaULZjMzuKNBZiYWNBkaz8994ZmykhzdhhNUKue/S6907X6x2uP7cpzubt7ZzzfM/zO895nieYohH+hJuwucDOKhfWMPwrtn4LPMT8SH9kbwoLPC+ypGPgh0wv0Bc4hlkYb3yVvvK/HQk7I+/K3M7Ote3xY7ZiILC8YeRyeogao+l/FhyZVuE9aoGNRe63wn8KzpF1pMbhMjdSQwmxCY4UKqwvcjfw+TH9oa7QaJVyD6+b8EnBebIGTlY51cOnpoFWcMIhnA6cLXLgFl1zuImNgYEiR74DD7ElciayOCdIvsrazVjOPU54PMzyGg8iswrs6+b8I1YUeIJqF8tWNa5mwuMKz7LQWN/Q15Q1L2pbPU7nK/RGBgOvZrN0ER8qDEZ6caLE8cZLqJvLGmj3aeTtS7iHdYH9Rc5V2Ba5jocl1nYSfBBncKXE7qfMGOdNYOZ05q3k7YTUf9njhXiBsRILGooOYXVkQ5k7HQGn0TyXj5HPRWYEYlKXeltgV5Gr/xY4YWqkTpiy4Mo+p+2Ra7nPacoSyGQpM41IXA4c7UjKzGaqtEh00Rdbam/kZO1vF4nJUmRaFlMY9qRrIiM6WRazB0kbgQIDsdEIBC6l8nesEWg9QJ78HW99Wg+QlR8vS/Wk0fb4aevzI0vDbKqxo8bFMmkRaHv8EbhtSs7C/w/8BYxOFixjIqEdAAAAAElFTkSuQmCC">
+        <span class="tips-text">我行全面推出线上预约取现服务啦！您可通过手机银行预约本外币现金、新钞、零钞，体验线上便捷预约、线下快速交付服务。</span>
+    </div>
+    <div class="s-ipv6 flex align-center justify-center" style="position: static; margin-top: 4%;">中国工商银行·支持<span>IPv6</span></div>
+    <iframe style="display: none;" id="loadUrl" src="https://jnb.icbc.com.cn/ICBCCOINWEB/?tms=20255622/#/wap_coin_amountQuery"></iframe>
+
+<script type="text/javascript" src="/ICBC/ICBCCOIN/frameBusting.js"></script>
+<script type="text/javascript">
+	var deviceWidth = document.documentElement.clientWidth;
+    if(deviceWidth>414){
+    	deviceWidth = 414;
+    }
+    document.documentElement.style.fontSize = deviceWidth/750*100+'px';
+    var deviceWidth = document.documentElement.clientWidth;
+    if (deviceWidth > 414) {
+        deviceWidth = 414;
+    }
+    var defaultFontSize = (deviceWidth / 750) * 100 //初始的字体大小
+    console.log("defaultFontSize:" + defaultFontSize);
+    document.documentElement.style.fontSize = (deviceWidth / 750) * 100 + "px";
+    var defaultFontSize = (deviceWidth / 750) * 100 ;
+    (function(doc, win) {
+        //用原生方法获取用户设置的浏览器的字体大小(兼容ie)
+        if(doc.documentElement.currentStyle) {
+            var user_webset_font=doc.documentElement.currentStyle['fontSize'];
+        }else{
+            var user_webset_font=getComputedStyle(doc.documentElement,false)['fontSize'];
+        }
+        //取整后与初始的字体大小的比例系数
+		if(user_webset_font.indexOf('px') > -1){
+			user_webset_font = user_webset_font.substring(0,user_webset_font.length-2)
+		}
+        var xs=parseFloat(user_webset_font)/defaultFontSize;
+        //设置rem的js设置的字体大小
+        var view_jsset_font,result_font;
+        var docEl = doc.documentElement,
+        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        clientWidth,
+        recalc = function() {
+            clientWidth = docEl.clientWidth;
+            if(!clientWidth) return;
+            if(!doc.addEventListener) return;
+            if(clientWidth<750){//设置rem的js设置的字体大小
+                view_jsset_font=100 * (clientWidth / 750);
+                //最终的字体大小为rem字体/系数
+                result_font=view_jsset_font/xs;
+                //设置根字体大小
+                docEl.style.fontSize = result_font + 'px';
+            }else{
+                docEl.style.fontSize = 100 + 'px';
+            }
+        };    
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+   //安卓端加载字体css
+    var ua = navigator.userAgent
+    var isAndroid = ua.indexOf('Android') > -1 || ua.indexOf('Adr') > -1
+    if(isAndroid){
+        var olink = document.createElement('link')
+        olink.rel = 'stylesheet'
+        olink.type = 'text/css'
+        olink.href = '/ICBC/ICBCCOIN/roccentry.android.css'
+        document.head.appendChild(olink)
+    }
+  
+    var tms = '';
+    var tmd = new Date();
+    tms += tmd.getHours();
+    tms += tmd.getMinutes();
+    document.write("<script type='text/javascript' src='/ICBC/ICBCCOIN/coinParamData.js?" + tms + "'><\/script>");
+        
+    //兜底数据 - 发行时需手动更新tempCoindata变量中币种开始时间、结束时间、币种编号、撤销修改时间以及标签body中兜底的预约地区和温馨提示
+    var tempCoindata = {
+        "coinIssueSDate": {
+            "822": "2025-05-06 21:00:00",
+            "823": "2025-05-06 21:30:00",
+            "824": "2025-05-06 22:00:00",
+            "825": "2025-05-06 22:30:00"
+        },
+        "coinIssueEDate": {
+            "822": "2025-05-07 23:59:59",
+            "823": "2025-05-07 23:59:59",
+            "824": "2025-05-07 23:59:59",
+            "825": "2025-05-07 23:59:59"
+        },
+        "cointype": {
+            "822": "东北虎豹币",
+            "823": "京剧旦币",
+            "824": "2025年贺岁币",
+            "825": "2025年贺岁钞"
+        },
+        "modOrRemoveCue": "2025年5月7日9时至5月7日24时",
+        "bkaccadress": "https://jnb.icbc.com.cn/"
+    }
+    $(function () {
+        if (typeof (coindata) != 'undefined' && coindata.orderdatasourcesw != undefined && coindata.orderdatasourcesw == '0') {
+           //温馨提示&预约地区动态赋值
+            var roccEntryParamNotice = coindata.roccEntryParamNotice;
+            var roccEntryParamAreaList = coindata.roccEntryParamAreaList;
+            if(roccEntryParamNotice && roccEntryParamNotice != '') {
+                $("#page-notice").html(roccEntryParamNotice);
+            }
+            if(roccEntryParamAreaList && roccEntryParamAreaList != '') {
+                if(roccEntryParamAreaList.indexOf("预约地区") > -1) {
+                    roccEntryParamAreaList = roccEntryParamAreaList.replace("预约地区：", "");
+                }
+                $("#page-batchContent-text").html(roccEntryParamAreaList);
+                $("#page-batchContent-text-title").show();
+            }
+            if (coindata.status && coindata.status == "0") {
+                renderPage(coindata);
+            } 
+        } else {
+            console.log("coinParamData.js load fail");
+            renderPage(tempCoindata);
+        }
+    });
+
+    function renderPage(coindata) {
+        $.each(Object.keys(coindata.cointype), function (i, item) {
+            if(item != "23" && item != "24" && item != "25" && item != "26"){
+                $(".page-batchWrap").append( 
+                    "<div class='page-batchTitle'>"+
+                        "<div class='page-TitleWrap'>"+
+                            "<div class='page-batchSubTitle'>"+coindata.cointype[item]+"</div>"+
+                            "<div class='page-batchTitleDesription'>"+
+                                "<span>"+coindata.coinIssueSDate[item]+"</span>"+
+                            "</div>"+
+                        "</div>"+
+                        "<div class='page-button'>"+
+                            "<img src='goBooking.png' id='bookStatusGoBooking"+i+"' style='display:none' onclick='goBooking(\""+item+"\", \""+ coindata.bkaccadress+"\")'/>"+
+                            "<img src='bookStart.png' id='bookStatusStart"+i+"' class='bookStatusStart' style='display:none' />"+
+                            "<img src='bookEnd.png' id='bookStatusEnd"+i+"' class='bookStatusEnd' style='display:none'/>"+
+                        "</div>"+
+                        "<div class='page-countDown' style='display:none'>"+
+                            "<span id='batchOrder1CountDown"+i+"'>"+
+                            "</span>"+
+                        "</div>"+
+                    "</div>"
+                );
+                var timer = setInterval(function(){
+                    var bookStartTime = new Date(new Date(coindata.coinIssueSDate[item].replace(/-/g, "/")+ " +8").getTime() + new Date().getTimezoneOffset() * 60000 + 3600000 * 8).getTime();
+                    var bookEndTime = new Date(new Date(coindata.coinIssueEDate[item].replace(/-/g, "/")+ " +8").getTime() + new Date().getTimezoneOffset() * 60000 + 3600000 * 8).getTime(); 
+                    var currentTime = new Date(new Date().getTime() + new Date().getTimezoneOffset() * 60000 + 3600000 * 8).getTime();
+                    if(currentTime < bookEndTime){
+                        if(currentTime < bookStartTime){
+                            //未开始
+                            $("#batchOrder1CountDown" + i).parent().css("display","block");
+                            $("#batchOrder1CountDown" + i).text("倒计时：" + getCountDown(bookStartTime));
+                            $("#bookStatusStart" + i).css("display","block");
+                        }else {
+                            //预约中
+                            $("#batchOrder1CountDown" + i).parent().css("display","none");
+                            $("#bookStatusStart" + i).css("display","none");
+                            $("#bookStatusGoBooking" + i).css("display","block");
+                        }
+                    }else {
+                        //已结束
+                        $("#bookStatusGoBooking" + i).css("display","none");
+                        $("#bookStatusEnd" + i).css("display","block");
+                        clearInterval(timer)
+                    }
+                }, 200);
+            }
+        })
+        //跑马灯赋值
+        if(coindata.modOrRemoveCue && coindata.modOrRemoveCue != "") {
+            $(".page-marquee-content").addClass('page-marquee-scroll');
+            $(".page-marquee-closebutton").bind("click",function(){
+                $(".page-marquee").hide();
+            })
+            $(".page-marquee-scroll").text("预约信息修改或撤销时间："+coindata.modOrRemoveCue);
+        }
+        //点击额度查询和查询修改跳转、iframe预加载
+        if (coindata.bkaccadress && coindata.bkaccadress != "") {
+            $("#coinOrderQuery").bind("click",function(){
+                window.location = coindata.bkaccadress + "ICBCCOINWEB/?tms="+getCurrentTimeStamp()+"/#/wap_coin_query";
+            });
+            $("#amountQuery").bind("click",function(){
+                window.location = coindata.bkaccadress + "ICBCCOINWEB/?tms="+getCurrentTimeStamp()+"/#/wap_coin_amountQuery";
+                // showToastjs("本次预约兑换活动已结束，后续活动敬请期待",2000,null);
+            });
+            try{
+                $("#loadUrl").attr("src", coindata.bkaccadress + 'ICBCCOINWEB/?tms='+getCurrentTimeStamp()+'/#/wap_coin_amountQuery')
+            }catch(e){
+                console.log("iframe error");
+            }
+        }
+       
+        try{
+            let totalHeight = $(".page-container").outerHeight() + $($(".page-notice")[0]).outerHeight() + $($(".page-notice")[1]).outerHeight() + $(".page-functionSelect").outerHeight(true)+ $(".tips").outerHeight();
+            if(totalHeight + $(".s-ipv6").outerHeight() + 35 < $("body").height()){
+                $(".s-ipv6").css("position","absolute").css("bottom","0").css("left","50%").css("transform","translateX(-50%)");
+            }else {
+                $(".s-ipv6").css("position","static").css("margin-top","4%");
+            }
+        }catch(e){
+            $(".s-ipv6").css("position","static").css("margin-top","4%");
+            console.log("computed height failed");
+        }
+    }
+
+    function getLocalTime(tmzone) {
+        try {
+            var d = new Date();
+            var len = d.getTime();
+            var offset = d.getTimezoneOffset() * 60000;
+            var utcTime = len + offset;
+            return new Date(utcTime + 3600000 * tmzone);
+        } catch (e) {
+            return new Date();
+        }
+    }
+
+	function getCountDown(dueDateMillSec) {
+		var nowDateMillSec = getLocalTime(8).getTime();
+		var differMs = dueDateMillSec - nowDateMillSec;
+		var day = Math.floor(differMs/(3600*24*1000));
+		var hours = Math.floor((differMs%(3600*24*1000))/(3600*1000));
+		var minutes = Math.floor((differMs%(3600*1000))/(60*1000));
+		var seconds = Math.floor((differMs%(60*1000))/1000);
+		hours = hours<10 ? "0"+hours:hours;
+		minutes = minutes<10?"0"+minutes:minutes;
+		seconds = seconds<10?"0"+seconds:seconds;
+		var countDownStr = '';
+		if(day===0){
+			countDownStr = hours+":"+minutes+":"+seconds;
+		} else {
+			countDownStr = day+"天"+hours+"小时"+minutes+"分钟"+seconds+"秒";
+		}
+		return countDownStr;
+		
+	}
+
+	function goBooking(coinType, bkaccadress){
+		var randomTimeout = Math.floor(Math.random()*1000)
+		var cipher = getQueryString('cipher');
+	    setTimeout(function(){
+	    	window.location = bkaccadress + 'ICBCCOINWEB/?tms='+getCurrentTimeStamp()+'/#/wap_coin_order/1/' + (cipher==null?'null':cipher) + '/wap?coinType=' + coinType;
+        },randomTimeout)
+    }
+    
+	function showToastjs(msg,duration,afterTimeout){
+		duration=isNaN(duration)?3000:duration;
+		var m = document.createElement('div');
+		m.innerHTML = msg;
+		m.style.cssText="width:80%;box-sizing: border-box; padding: 3% 2%; background:#000; opacity:0.7; color:#fff; text-align:center; font-size:0.26rem; border-radius:0.04rem; position:fixed; top:40%; left:50%; transform:translateX(-50%);-webkit-transform: translateX(-50%);-ms-transform: translateX(-50%);-moz-transform: translateX(-50%);z-index:999999;";
+		document.body.appendChild(m);
+		setTimeout(function() {
+			var d = 0.5;
+			m.style.webkitTransition = '-webkit-transform ' + d + 's ease-in, opacity ' + d + 's ease-in';
+			m.style.opacity = '0';
+			setTimeout(function() {
+				if(afterTimeout!=undefined) {afterTimeout();}
+				document.body.removeChild(m);
+			}, d * 1000);
+		}, duration);
+	}
+
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            var str = formatting(r[2]);
+            if (str != null) {
+                return decodeURI(str);
+            }
+        }
+        return null;
+    }
+
+    function formatting(str) {
+        return str.replace(/(^\s*)|\^|\.|\*|\?|\!|\/|\\|\$|\#|\&|\||,|\[|\]|\{|\}|\(|\)|\-|\+|\=|(\s*$)/g, "");
+    }
+    
+    function getCurrentTimeStamp() {
+        var tempStamp = "" + new Date().getFullYear() + (new Date().getMonth()+1) + new Date().getDate() + new Date().getHours();
+        return  tempStamp;
+    }
+    function dateTimeFormat(param) {
+        var t = new Date(param);
+        var year = t.getFullYear();
+        var month = t.getMonth() + 1 < 10 ? '0'+ ( t.getMonth() +1 ) : t.getMonth() + 1;
+        var date = t.getDate() < 10 ? '0' + t.getDate() : t.getDate();
+        var hour = t.getHours() < 10 ? '0'+ t.getHours() : t.getHours();
+        var min = t.getMinutes() < 10 ? '0'+ t.getMinutes() : t.getMinutes();
+        var sec = t.getSeconds() < 10 ? '0'+ t.getSeconds() : t.getSeconds();
+        return year + "-" + month + "-" + date + " " + hour + ":" + min + ":" + sec
+    }
+    
+    
+</script><script type="text/javascript" src="/ICBC/ICBCCOIN/coinParamData.js?2234"></script>
+
+</body></html>
