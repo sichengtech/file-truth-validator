@@ -1,0 +1,4 @@
+1. 实现热替换。
+   运行一个程序HelloMain，他会循环调用另外一个类Worker.doit()方法。此时，对Worker.doit()方法做更新。要求 更新后，HelloMain可以发现新的版本。
+
+   可以选择替换class文件 ，也可以选择替换jar包。

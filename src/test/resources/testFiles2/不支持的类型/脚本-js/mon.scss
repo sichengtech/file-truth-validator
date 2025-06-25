@@ -1,0 +1,45 @@
+/*
+  * @Author: 霍利昂
+  * @LastEditors: 霍利昂
+  * @Date: 2023-10-9 16:41:58
+  * @LastEditTime:2023-10-9 16:41:58
+  * @info: 公共样式
+*/
+/* 每个项目两侧的间隔相等。上下居中 */
+.flex-s-a-c {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+/* 两端无空隙，项目之间的间隔都相等。上下居中 */
+.flex-s-b-c {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 项目底部对齐 两边无空隙*/
+.flex-s-b-f-e {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+/* 项目底部对齐 坐到右*/
+.flex-f-s-f-e {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+/* 项目上下居中 左到右*/
+.flex-f-s-c {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+/* 自动换行 两边有间隙*/
+.flex-w-s-a{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
